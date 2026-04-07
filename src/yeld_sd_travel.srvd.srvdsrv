@@ -1,0 +1,6 @@
+@EndUserText.label: 'Service Definition - Travel entity'
+define service YELD_SD_TRAVEL {
+  expose YELD_PV_TRAVEL;
+  expose YELD_PV_BOOKING;
+  expose YELD_PV_BOOKING_SUP;
+}

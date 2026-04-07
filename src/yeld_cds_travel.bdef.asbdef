@@ -1,0 +1,100 @@
+managed;
+strict ( 2 );
+
+define behavior for YELD_CDS_TRAVEL implementation in class zbp_eld_cds_travel unique
+persistent table yeld_travel
+lock master
+authorization master ( instance )
+
+early numbering // tipo da numeração - tem duas late/early
+//etag master <field_name>
+{
+  field ( readonly ) travelId; // campo chave somente leitura
+  create;
+  update;
+  delete;
+  association _booking { create; }
+
+  // actions: tipo, action em si, nome dela e cardinalidade
+
+  // factory action
+
+  factory action copia [1];
+
+  mapping for yeld_travel
+  {
+    TravelId = travel_id;
+    AgencyId = agency_id;
+    CustomerId = customer_id;
+    BeginDate = begin_date;
+    EndDate = end_date;
+    BookingFee = booking_fee;
+    TotalPrice = total_price;
+    CurrencyCode = currency_code;
+    Description = description;
+    OverallStatus = overall_status;
+    CreatedBy = created_by;
+    CreatedAt = created_at;
+    LastChangedBy = last_changed_by;
+    LastChangedAt = last_changed_at;
+  }
+
+}
+
+define behavior for YELD_CDS_BOOKING implementation in class zbp_eld_cds_booking unique
+persistent table yeld_booking
+lock dependent by _travel
+authorization dependent by _travel
+
+early numbering
+//etag master <field_name>
+{
+  field ( readonly ) TravelId, BookingId;
+
+  update;
+  delete;
+
+  association _travel;
+  association _bookingSup { create; }
+
+  mapping for yeld_booking
+  {
+    TravelId = travel_id;
+    BookingId = booking_id;
+    BookingDate = booking_date;
+    CustomerId = customer_id;
+    CarrierId = carrier_id;
+    ConnectionId = connection_id;
+    FlightDate = flight_date;
+    FlightPrice = flight_price;
+    CurrencyCode = currency_code;
+    BookingStatus = booking_status;
+    LastChangedAt = last_changed_at;
+  }
+}
+
+define behavior for YELD_CDS_BOOKING_SUP implementation in class zbp_eld_cds_booking_sup unique
+persistent table yeld_booking_sup
+lock dependent by _travel
+authorization dependent by _travel
+
+early numbering
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( readonly ) TravelId, BookingId, BookingSupplementId;
+  association _travel;
+  association _booking;
+
+  mapping for yeld_booking_sup
+  {
+    TravelId = travel_id;
+    BookingId = booking_id;
+    BookingSupplementId = booking_supplement_id;
+    SupplementId = supplement_id;
+    Price = price;
+    CurrencyCode = currency_code;
+    LastChangedAt = last_changed_at;
+  }
+}

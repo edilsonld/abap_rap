@@ -1,0 +1,5 @@
+CLASS zbp_eld_cds_booking DEFINITION PUBLIC ABSTRACT FINAL FOR BEHAVIOR OF yeld_cds_travel.
+ENDCLASS.
+
+CLASS zbp_eld_cds_booking IMPLEMENTATION.
+ENDCLASS.

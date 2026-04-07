@@ -1,0 +1,5 @@
+@EndUserText.label: 'Connections Definition'
+define service ZELD_SRD_CONNECTIONS {
+  expose ZELD_GM_CONNECTION as connection;
+  expose ZELD_GM_FLIGHT as flight;
+}
